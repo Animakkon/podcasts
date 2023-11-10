@@ -1,0 +1,6 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+@import 'assets/styles/fontFamilyDescription.css';
+
+.castom-font {
+    font-family: 'Montserrat';
+}
