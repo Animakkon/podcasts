@@ -28,6 +28,8 @@
         </v-card-actions>
       </v-card>
     </v-row>
+
+    <v-row>Product List here vith othrer SCF </v-row>
   </v-container>
 </template>
 
