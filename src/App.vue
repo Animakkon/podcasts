@@ -13,7 +13,8 @@ const menuItems = [
 
 <template>
     <header>
-        <v-btn icon="mdi-account">WTF
+        <v-btn prepend-icon="$menu" variant="tonal">
+        menu
             <v-menu activator="parent">
                 <v-list>
                     <v-list-item
@@ -35,7 +36,6 @@ const menuItems = [
 
 <style>
     header {
-        outline: 1px solid black;
-        margin: 24px auto;
+        padding: 24px;
     }
 </style>
