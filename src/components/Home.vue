@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import ProductService from "../services/product.ts"
-  import { ref, reactive } from "vue"
+  import ProductService from "@/services/product.ts"
+  import { ref, reactive, computed } from "vue"
   import  Loader from "./Loader.vue"
   import  ProductListItem from "./ProductListItem.vue"
 
@@ -14,6 +14,17 @@
   });
 
 
+  const cathegoryCalculated = computed({
+    
+    get () : string {
+      return currentCathegory.value
+    },
+    
+    set (cathegory: string) {
+      currentCathegory.value = cathegory;
+    }
+  })
+
   function setCurrentCathegory(cathegory: string) {
     currentCathegory.value = cathegory
   }
@@ -26,6 +37,11 @@
       
       isLoading.value = false;
     }, 2000)
+  }
+
+  function chooseProductCathegory(cathegory: string) {
+    setCurrentCathegory(cathegory); 
+    getProductsIndex(cathegory)
   }
 
 </script>
@@ -48,8 +64,8 @@
           <v-btn
               variant="outlined"
               append-icon="mdi-arrow-right"
-              :disabled="currentCathegory === cathegory"
-              @click="setCurrentCathegory(cathegory); getProductsIndex(cathegory)"
+              :disabled="cathegoryCalculated === cathegory"
+              @click="chooseProductCathegory(cathegory)"
           >Show</v-btn>
         </v-card-actions>
       </v-card>
@@ -58,7 +74,7 @@
   </v-container>
 
   <v-container  id="ProductList" class="center-align">
-    <h2 v-if="currentCathegory">{{ currentCathegory }}:</h2>
+    <h2 v-if="cathegoryCalculated">{{ cathegoryCalculated }}:</h2>
 
     <Loader v-if="isLoading"/>
 
@@ -70,10 +86,7 @@
           v-for="product in states.products"
           :key="product.id"
 
-          :title="product.title"
-          :price="product.price"
-          :description="product.description"    
-          :imageSrc="product.image"
+          :product="product"
 
           class="flex-1-2 product-card"
         ></ProductListItem>

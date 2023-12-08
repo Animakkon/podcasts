@@ -1,20 +1,17 @@
 <script setup lang="ts">
     const props = defineProps({
-        title: '',
-        price: '',
-        description: '',
-        imageSrc: ''
+      product: {},
     })
 </script>
 
 <template> 
     <v-card 
-        :subtitle="props.price + '$'"
+        :subtitle="props.product.price + '$'"
         variant="tonal">
         <v-container>
-            <img :src="props.imageSrc" alt="card-image" class="product-img">
+            <img :src="props.product.image" alt="card-image" class="product-img">
             
-            <h2> {{ props.title }} </h2>
+            <h2> {{ props.product.title }} </h2>
         </v-container>
 
     </v-card>
