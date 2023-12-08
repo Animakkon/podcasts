@@ -13,6 +13,10 @@ export default class ProductService {
         return productList;
     }
 
+    getProductListByCathegories(cathegory: string) {
+        return productList.filter((product) => product.category === cathegory )
+    }
+
     getCathegoriesArray() {
         return $enum(ProductCathegories).getValues()
     }
