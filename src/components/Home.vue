@@ -112,8 +112,6 @@
     margin-bottom: 20px;
   }
 
-  // коммит поверх
-
   .cathegories {
     .v-container {
       padding-bottom: 5em;
