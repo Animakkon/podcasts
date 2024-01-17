@@ -112,11 +112,11 @@
     margin-bottom: 20px;
   }
 
-  // говнина говнина
+  // коммит поверх
 
   .cathegories {
     .v-container {
-      padding-bottom: 5em;пше
+      padding-bottom: 5em;
     }
   }
 
