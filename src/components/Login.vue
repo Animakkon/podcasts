@@ -1,79 +1,95 @@
 <script setup lang="ts">
-  import { reactive } from "vue";
-  import {ICredentialsInfo, login} from "@/services/auth.ts"
+import { ref } from "vue"
+import {useField, useForm} from "vee-validate";
+import {ICredentialsInfo, login} from "@/services/auth.ts";
+import { useRouter } from 'vue-router'
 
-  const rules = {
-    required: value => !!value || 'Field is required'
+const {handleSubmit} = useForm({
+  validationSchema: {
+    user(value) {
+      if (!value) return 'Name needs'
+      return true
+    },
+    password(value) {
+      if (!value) return 'Password needs'
+      return true
+    },
+
   }
+})
 
-  const formValues = reactive({
-    user: '',
-    password: ''
-      }
-  )
+const user = useField('user')
+const password = useField('password')
 
-  function sendMethod() {
-    const creds: ICredentialsInfo = {
-      user: formValues.user,
-      password: formValues.password
+const inProcess = ref(false)
+const router = useRouter();
+
+const submit = handleSubmit((values) => {
+  inProcess.value = true
+
+  const creds: ICredentialsInfo = {
+    user: user.value.value,
+    password: password.value.value
+  }
+  login(creds).then((result: boolean) => {
+
+    if (result) {
+      router.push('/')
     }
-    login(creds )
-  }
+    return result
+  });
 
+})
 </script>
 
 <template>
-  <v-container fluid>
-    <v-row align="center">
-      <v-card class="mx-auto pa-12 pb-8"
-              :title="'Authentifications'"
-      >
-        <v-card-title>
-          <v-divider></v-divider>
-        </v-card-title>
+  <v-container div class="d-flex justify-start mb-6 fill-height">
+    <v-sheet class="mx-auto pa-12 pb-8">
 
-        <v-form ref="user">
+      <h2>Authentifications</h2>
+      <v-divider></v-divider>
+      <br>
 
-          <div class="text-subtitle-1 text-medium-emphasis">Account</div>
-          <v-text-field
-              v-model="formValues.user"
-              :rules="[rules.required]"
-              variant="outlined"
-              label="Name"
-              placeholder="Name or e-mail address"
-              clearable
-          ></v-text-field>
+      <form @submit.prevent="submit" :disabled="inProcess">
+        <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+        <v-text-field
+            v-model="user.value.value"
+            :error-messages="user.errorMessage.value"
+            variant="outlined"
+            placeholder="User name"
+            clearable
+        ></v-text-field>
 
-          <div class="text-subtitle-1 text-medium-emphasis">Password</div>
-          <v-text-field
-              v-model="formValues.password"
-              :rules="[rules.required]"
-              variant="outlined"
-              label="Password"
-              placeholder="Password input"
-              clearable
-          >
+        <div class="text-subtitle-1 text-medium-emphasis">Password</div>
+        <v-text-field
+            v-model="password.value.value"
+            :error-messages="password.errorMessage.value"
+            variant="outlined"
+            placeholder="Password input"
+            clearable
+            block
+        >
 
-          </v-text-field>
+        </v-text-field>
 
-          <v-btn @click="sendMethod"
-                 variant="elevated"
-                 color="primary"
-                 class="wtf"
-          >Log in</v-btn>
-        </v-form>
-      </v-card>
-    </v-row>
+        <v-btn
+            block
+            type="submit"
+            class="text-none text-black mb-4"
+            color="blue-grey-darken-3"
+            size="x-large"
+            variant="flat"
+        >Log in
+        </v-btn>
+      </form>
+    </v-sheet>
   </v-container>
+
+
 </template>
 
-<style scoped>
-  v-text-field {
-    margin-bottom: 12px;
-  }
-
-  .wtf {
-    font-weight: bold;
-  }
-
+<style>
+.v-btn__content {
+  color: #EDF3F7;
+}
 </style>
