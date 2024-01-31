@@ -8,7 +8,7 @@ export enum ENDPOINTS {
     Category = "category"
 }
 
-export interface IProductToSave {
+export interface IProduct {
     title: string,
     price: number,
     description: string,
