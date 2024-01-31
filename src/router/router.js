@@ -1,19 +1,41 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import { isAuthorized } from '@/services/auth.ts'
-import Home from '@/components/Home.vue'
-import Login from '@/components/Login.vue'
+import Login from '@/components/general/Login.vue'
+import ShopPage from "@/components/ShopPage.vue";
+import CartPage from "@/components/CartPage.vue";
+import ProductCreatePage from "@/components/ProductCreatePage.vue";
+import CheckoutPage from "@/components/CheckoutPage.vue";
 
 const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
+    { path: '/', component: ShopPage },
     {
         path: '/login',
         name: 'Login',
         component: Login
-    }
+    },
+    {
+        path: '/shop',
+        name: 'Shop',
+        component: ShopPage
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: CartPage
+
+    },
+    {
+        path: '/checkout',
+        name: 'Checkout',
+        component: CheckoutPage
+
+    },
+    {
+        path: '/product_create',
+        name: 'Ceate product',
+        component: ProductCreatePage
+    },
+
 ]
 
 const router = createRouter({
@@ -21,7 +43,7 @@ const router = createRouter({
     routes,
 })
 
-router.beforeResolve(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (!isAuthorized() && to.name !== "Login") {
         next({
             path: "login",
