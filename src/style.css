@@ -20,9 +20,11 @@
     --small-txt-sz: 12px;
 }
 
+html, body, #app {
+    height: 100%;
+}
+
 * {
     font-family: 'Montserrat';
-    font-size: var(--body-txt-sz);
-    color: var(--black);
     text-decoration: none;
 }
