@@ -6,11 +6,11 @@ import { useRouter } from 'vue-router'
 
 const {handleSubmit} = useForm({
   validationSchema: {
-    user(value) {
+    user (value) {
       if (!value) return 'Name needs'
       return true
     },
-    password(value) {
+    password (value) {
       if (!value) return 'Password needs'
       return true
     },
@@ -24,7 +24,7 @@ const password = useField('password')
 const inProcess = ref(false)
 const router = useRouter();
 
-const submit = handleSubmit((values) => {
+const submit = handleSubmit(() => {
   inProcess.value = true
 
   const creds: ICredentialsInfo = {
