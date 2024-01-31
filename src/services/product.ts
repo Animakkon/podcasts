@@ -1,24 +1,34 @@
-import productList from '../../public/data/products'
-import {$enum} from "ts-enum-util";
+import { get, post } from '../services/httpAxiosRequests.ts'
 
-export enum ProductCathegories {
-    MenClothing = "men's clothing",
-    Jewelery = "jewelery",
-    Electronics = "electronics",
-    WomansClothing = "women's clothing",
+const BASE_URL = "https://fakestoreapi.com"
+
+export enum ENDPOINTS {
+    Products = "products",
+    Categories = "categories",
+    Category = "category"
+}
+
+export interface IProductToSave {
+    title: string,
+    price: number,
+    description: string,
+    category: string,
+    image: string
 }
 
 export default class ProductService {
     getAllProductList() {
-        return productList;
+        return get('products', {}, BASE_URL)
     }
 
-    getProductListByCathegories(cathegory: string) {
-        return productList.filter((product) => product.category === cathegory )
+    getAllCathegories() {
+        const url = `${ENDPOINTS.Products}/${ENDPOINTS.Categories}`
+        return get(url, {}, BASE_URL);
     }
 
-    getCathegoriesArray() {
-        return $enum(ProductCathegories).getValues()
+    createProduct(body:string) {
+        const url = `${ENDPOINTS.Products}`
+        return post(url, body, {}, BASE_URL)
     }
 
 }
