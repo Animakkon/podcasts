@@ -19,7 +19,7 @@
     "vee-validate": "^4.12.4",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5",
-    "vuetify": "3.4.3",
+    "vuetify": "3.4.3"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.5.0",
