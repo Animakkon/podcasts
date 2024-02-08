@@ -5,7 +5,7 @@
 </script>
 
 <template> 
-    <v-card 
+    <v-card class="elevation-5 flex d-flex flex-column"
         :subtitle="props.product.price + '$'"
         variant="tonal">
         <v-container>
@@ -18,12 +18,7 @@
 </template>
 
 <style>
-  .v-card {
-    width: 20em;    
-  }
-
   .product-img {
     width: 50%;
   }
-
 </style>

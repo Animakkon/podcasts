@@ -1,25 +1,57 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
-import Home from '../components/Home.vue'
+import { isAuthorized } from '@/services/auth.ts'
+import Login from '@/components/general/Login.vue'
+import ShopPage from "@/components/ShopPage.vue";
+import CartPage from "@/components/CartPage.vue";
+import ProductCreatePage from "@/components/ProductCreatePage.vue";
+import CheckoutPage from "@/components/CheckoutPage.vue";
 
 const routes = [
-    { 
-        path: '/', 
-        name: 'Home',
-        component: Home
+    { path: '/', component: ShopPage },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/shop',
+        name: 'Shop',
+        component: ShopPage
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: CartPage
+
+    },
+    {
+        path: '/checkout',
+        name: 'Checkout',
+        component: CheckoutPage
+
+    },
+    {
+        path: '/product_create',
+        name: 'Ceate product',
+        component: ProductCreatePage
     },
 
-    { 
-        path: '/helloWorldPage', 
-        name: 'HelloWorld',
-        component: HelloWorld
-    },
 ]
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
-
 })
 
-export default router
+router.beforeEach(async (to, from, next) => {
+    if (!isAuthorized() && to.name !== "Login") {
+        next({
+            path: "login",
+            replace: true
+        })
+    } else {
+       next();
+    }
+})
+
+export default router;
