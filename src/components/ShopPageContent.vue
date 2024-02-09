@@ -204,7 +204,28 @@ function resetAndGetList() {
             >
               <ProductListItem
                   :product="product"
-              ></ProductListItem>
+                  @productInfo="(n) => {$router.push({ name: 'ProductCard', params: { id: n } })}"
+              >
+                <template #buttons>
+                  <v-btn v-show="!isInCart(product.id)"
+                         @click.stop.prevent="setIntoCart(product.id)"
+                         size="x-large"
+                         density="comfortable"
+                         class="text-none text-black ma-0 pa-0"
+                         color="green-darken-1"
+                         block>
+                    Добавить
+                  </v-btn>
+                  <v-btn @click.stop.prevent="$router.push({ name: 'Cart'})" v-show="isInCart(product.id)"
+                         size="x-large"
+                         density="comfortable"
+                         class="text-none text-green-lighten-5 ma-0 pa-0"
+                         color="green-lighten-4"
+                         block>
+                    В корзине
+                  </v-btn>
+                </template>
+              </ProductListItem>
             </v-col>
           </v-row>
         </v-container>
