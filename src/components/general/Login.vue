@@ -34,7 +34,7 @@ const submit = handleSubmit(() => {
   login(creds).then((result: boolean) => {
 
     if (result) {
-      router.push('/')
+      router.push({name: 'CeateProduct'})
     }
     return result
   });

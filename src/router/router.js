@@ -5,9 +5,12 @@ import ShopPage from "@/components/ShopPage.vue";
 import CartPage from "@/components/CartPage.vue";
 import ProductCreatePage from "@/components/ProductCreatePage.vue";
 import CheckoutPage from "@/components/CheckoutPage.vue";
+import ProductShowPage from "@/components/ProductShowPage.vue";
 
 const routes = [
-    { path: '/', component: ShopPage },
+    {
+        path: '/',
+        component: ShopPage },
     {
         path: '/login',
         name: 'Login',
@@ -32,8 +35,14 @@ const routes = [
     },
     {
         path: '/product_create',
-        name: 'Ceate product',
+        name: 'CeateProduct',
         component: ProductCreatePage
+    },
+
+    {
+        path: '/product/:id',
+        name: 'ProductCard',
+        component: ProductShowPage
     },
 
 ]
