@@ -1,10 +1,10 @@
 let menuItems = [
     {
         title: 'Shop',
-        link: 'shop'
+        link: '/shop'
     },{
         title: 'Cart',
-        link: 'cart'
+        link: '/cart'
     },{
         title: 'ProductCreate',
         link: '/product_create'
