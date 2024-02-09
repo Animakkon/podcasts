@@ -31,4 +31,9 @@ export default class ProductService {
         return post(url, body, {}, BASE_URL)
     }
 
+    getProductById(id: string) {
+        const url = `${ENDPOINTS.Products}/${id}`
+        return get(url, {}, BASE_URL)
+    }
+
 }
