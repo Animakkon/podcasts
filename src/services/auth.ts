@@ -1,43 +1,34 @@
-import { get } from "./httpAxiosRequests.ts"
+import {ICredentialsInfo, toLogIn, toLogOut} from "../api/AAuth.ts";
+import { userAuthStore } from '@/store-pinia/userAuthStore.ts'
 
 
-export interface ICredentialsInfo {
-    user: string,
-    password: string
-}
-
-interface IAuthResponce {
-    authenticated: boolean,
-    user: string
+function _authStore() {
+    return userAuthStore()
 }
 
 export async function login(credentials: ICredentialsInfo) {
-    const btoaString = btoa(`${credentials.user}:${credentials.password}`);
-    const url = `basic-auth/${credentials.user}/${credentials.password}`
-    const headers = {
-        authorization: `basic ${btoaString}`
-    }
-
-    return await get(url, headers).then(function (response) {
-        const result: IAuthResponce = response as IAuthResponce;
-        if (result.authenticated) {
-            localStorage.setItem('user', JSON.stringify(result));
+    return toLogIn(credentials).then((response: boolean) => {
+        if (response) {
+            _authStore().setUserCredentialsAndAuthStatus(credentials, response)
         }
-        return result.authenticated;
-    });
+
+        return response
+    })
 }
 
 export function logout() {
-    localStorage.removeItem('user');
+    return toLogOut().then((response) => {
+        if (response) {
+            const credentials: ICredentialsInfo = {
+                user: '',
+                password: ''
+            };
+
+            _authStore().setUserCredentialsAndAuthStatus(credentials, false)
+        }
+    })
 }
 
 export function isAuthorized() {
-    const userData = localStorage.getItem('user');
-
-    if (userData) {
-        const auth = JSON.parse(userData).authenticated;
-        return auth
-    } else {
-        return false;
-    }
+    return _authStore().getIsAuthorized()
 }
