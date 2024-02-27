@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PageTemplate from '@/components/templates/PageTemplate.vue'
 import ContentTemplate from "@/components/templates/ContentTemplate.vue";
+import BackButton from "@/components/components/BackButton.vue";
 
 </script>
 
@@ -13,9 +14,12 @@ import ContentTemplate from "@/components/templates/ContentTemplate.vue";
     <template #main>
       <content-template>
         <template #left-content>
-          <v-btn density="comfortable"
-                 color="orange-darken-1"
-                 @click="this.$router.push('/checkout')">Заказать</v-btn>
+          <div class="mb-4">
+            <v-btn density="comfortable"
+                   color="orange-darken-1"
+                   @click="this.$router.push('/checkout')">Заказать</v-btn>
+          </div>
+          <back-button></back-button>
         </template>
 
         <template #central-content>
