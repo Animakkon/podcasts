@@ -53,7 +53,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    if (!isAuthorized() && to.name !== "Login") {
+    if (!isAuthorized() && to.name === "CeateProduct") {
         next({
             path: "login",
             replace: true
