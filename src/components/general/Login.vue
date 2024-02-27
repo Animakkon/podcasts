@@ -32,11 +32,9 @@ const submit = handleSubmit(() => {
     password: password.value.value
   }
   login(creds).then((result: boolean) => {
-
     if (result) {
       router.push({name: 'CeateProduct'})
     }
-    return result
   });
 
 })
