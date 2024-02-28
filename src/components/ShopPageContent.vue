@@ -7,6 +7,8 @@ import ProductService, {IProduct} from "@/services/product.ts"
 
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
+import ActionButtons from "@/components/components/AddThenGoToCartButton.vue";
+import {addToCart, getProductCountsInCart} from "@/services/cart.ts";
 
 const props = defineProps(['parentFilter'])
 watch(props, (newVal) => {
@@ -29,6 +31,7 @@ watch(props, (newVal) => {
 
 onMounted(() => {
       inProcess.value = true
+      _productsInCart.value = getProductCountsInCart()
 
       axios.all([
         getProductsList(),
@@ -92,6 +95,21 @@ const calculatedProducts = computed({
   }
 })
 
+const productsInCart = ref([])
+const _productsInCart = computed({
+  get() {
+    return productsInCart.value
+  },
+  set(products: Array<any>) {
+    productsInCart.value = products
+  }
+})
+
+const isInCart = (productId: number) => {
+  return productsInCart.value.find(el => el.id === productId)
+}
+
+
 function chooseProductBycategory(category: string) {
   return productService$.getProductListBycategory(category)
 }
@@ -128,11 +146,16 @@ function filterByFormValues() {
   }
 }
 
+function setIntoCart(productId: string, product: IProduct) {
+  addToCart(product)
+}
+
 function resetAndGetList() {
   handleReset()
 
   calculatedProducts.value = states.products
 }
+
 </script>
 
 <template>
@@ -207,23 +230,11 @@ function resetAndGetList() {
                   @productInfo="(n) => {$router.push({ name: 'ProductCard', params: { id: n } })}"
               >
                 <template #buttons>
-                  <v-btn v-show="!isInCart(product.id)"
-                         @click.stop.prevent="setIntoCart(product.id)"
-                         size="x-large"
-                         density="comfortable"
-                         class="text-none text-black ma-0 pa-0"
-                         color="green-darken-1"
-                         block>
-                    Добавить
-                  </v-btn>
-                  <v-btn @click.stop.prevent="$router.push({ name: 'Cart'})" v-show="isInCart(product.id)"
-                         size="x-large"
-                         density="comfortable"
-                         class="text-none text-green-lighten-5 ma-0 pa-0"
-                         color="green-lighten-4"
-                         block>
-                    В корзине
-                  </v-btn>
+                  <ActionButtons :product-id="product.id"
+                                 :is-in-cart="isInCart(product.id)"
+                                 @emitProductToCart="(id) => setIntoCart(id, product)"
+                  >
+                  </ActionButtons>
                 </template>
               </ProductListItem>
             </v-col>
