@@ -72,13 +72,12 @@ watch(selectcategory, (newcategory) => {
 
   let req;
   if (!!newcategory) {
-    req = chooseProductBycategory(newcategory)
+    req = productService$.getProductListBycategory(newcategory, states.products)
   } else {
     req = getProductsList()
   }
 
   req.then((result) => {
-    states.products = result
     calculatedProducts.value = result
 
     inProcess.value = false
@@ -107,11 +106,6 @@ const _productsInCart = computed({
 
 const isInCart = (productId: number) => {
   return productsInCart.value.find(el => el.id === productId)
-}
-
-
-function chooseProductBycategory(category: string) {
-  return productService$.getProductListBycategory(category)
 }
 
 function getProductsList() {
