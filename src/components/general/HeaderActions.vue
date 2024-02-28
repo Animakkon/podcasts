@@ -1,10 +1,30 @@
 <script setup lang="ts">
 import menuItems from '@/router/menuItems.js'
+import {computed, onBeforeMount, onMounted, reactive, ref} from "vue";
+import {isAuthorized, logout} from "@/services/auth.ts";
+import {getCartProducts, getCartTotals} from "@/services/cart.ts";
 const menu = menuItems;
+
+let authorized = ref(false)
+let cartCounts = ref(0)
+
+onMounted(() => {
+  authorized = isAuthorized()
+  cartCounts = getCartTotals()
+})
+
+function toLogOut() {
+  logout()
+  window.location.reload()
+}
+
+const fullCart = ref(false)
+const checkCart = computed(() => fullCart.value = getCartProducts().length > 0)
 
 </script>
 
 <template>
+  <container>
     <div id="navigation">
       <v-btn variant="tonal">
         <v-icon icon="mdi-menu" color="grey-darken-3"></v-icon>
@@ -26,7 +46,8 @@ const menu = menuItems;
 
     <div id="user-actions">
       <v-btn @click="$router.push('/cart')"
-             variant="text" >
+             :color="checkCart ? 'green-darken-2' : 'grey-lighten-5' "
+             variant="tonal">
         <v-icon icon="mdi-cart-variant"
                 color="grey-darken-3"
         ></v-icon>
@@ -34,10 +55,11 @@ const menu = menuItems;
       <v-btn  variant="text" :disabled="true">
         <v-icon icon="mdi-account-check" color="grey-darken-3"></v-icon>
       </v-btn>
-      <v-btn  variant="text" :disabled="true">
+      <v-btn  v-show="authorized" @click="toLogOut" variant="text">
         <v-icon icon="mdi-logout" color="grey-darken-3"></v-icon>
       </v-btn>
     </div>
+  </container>
 </template>
 
 <style scoped>
