@@ -7,7 +7,7 @@ import ProductService, {IProduct} from "@/services/product.ts"
 
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
-import ActionButtons from "@/components/components/AddThenGoToCartButton.vue";
+import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
 import {addToCart, getProductCountsInCart} from "@/services/cart.ts";
 
 const props = defineProps(['parentFilter'])
@@ -224,11 +224,11 @@ function resetAndGetList() {
                   @productInfo="(n) => {$router.push({ name: 'ProductCard', params: { id: n } })}"
               >
                 <template #buttons>
-                  <ActionButtons :product-id="product.id"
-                                 :is-in-cart="isInCart(product.id)"
-                                 @emitProductToCart="(id) => setIntoCart(id, product)"
+                  <AddThenGoToCartButton :product-id="product.id"
+                                         :is-in-cart="isInCart(product.id)"
+                                         @emit-product-to-cart="(id) => setIntoCart(id, product)"
                   >
-                  </ActionButtons>
+                  </AddThenGoToCartButton>
                 </template>
               </ProductListItem>
             </v-col>
