@@ -3,6 +3,7 @@
          density="comfortable"
          color="orange-darken-1"
          variant="text"
+         block
   >
     <span style="color: grey">Обратно</span></v-btn>
 </template>
