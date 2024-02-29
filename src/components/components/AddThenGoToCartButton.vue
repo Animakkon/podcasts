@@ -1,6 +1,12 @@
 <script setup lang="ts">
 const props = defineProps(['isInCart', 'productId'])
 
+const emit = defineEmits(['emitProductToCart'])
+
+function emitProductToCart() {
+  emit('emitProductToCart', props.productId)
+}
+
 </script>
 
 <template>
