@@ -24,7 +24,7 @@ const checkCart = computed(() => fullCart.value = getCartProducts().length > 0)
 </script>
 
 <template>
-  <container>
+  <v-container>
     <div id="navigation">
       <v-btn variant="tonal">
         <v-icon icon="mdi-menu" color="grey-darken-3"></v-icon>
@@ -59,7 +59,7 @@ const checkCart = computed(() => fullCart.value = getCartProducts().length > 0)
         <v-icon icon="mdi-logout" color="grey-darken-3"></v-icon>
       </v-btn>
     </div>
-  </container>
+  </v-container>
 </template>
 
 <style scoped>
