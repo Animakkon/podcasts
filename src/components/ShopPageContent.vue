@@ -8,7 +8,7 @@ import ProductService, {IProduct} from "@/services/product.ts"
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
-import {addToCart, getProductCountsInCart} from "@/services/cart.ts";
+import {addToCart, getProductCounts} from "@/services/cart.ts";
 
 const props = defineProps(['parentFilter'])
 watch(props, (newVal) => {
@@ -31,7 +31,7 @@ watch(props, (newVal) => {
 
 onMounted(() => {
       inProcess.value = true
-      _productsInCart.value = getProductCountsInCart()
+      _productsInCart.value = getProductCounts()
 
       axios.all([
         getProductsList(),
