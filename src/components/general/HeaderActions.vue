@@ -2,7 +2,7 @@
 import menuItems from '@/router/menuItems.js'
 import {computed, onBeforeMount, onMounted, reactive, ref} from "vue";
 import {isAuthorized, logout} from "@/services/auth.ts";
-import {getCartProducts, getCartTotals} from "@/services/cart.ts";
+import {getCartProducts, getCartTotalsSum} from "@/services/cart.ts";
 const menu = menuItems;
 
 let authorized = ref(false)
@@ -10,7 +10,7 @@ let cartCounts = ref(0)
 
 onMounted(() => {
   authorized = isAuthorized()
-  cartCounts = getCartTotals()
+  cartCounts = getCartTotalsSum()
 })
 
 function toLogOut() {
