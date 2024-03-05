@@ -18,7 +18,7 @@ const props = defineProps({
       <div class="d-flex h-75 flex-1-1-100 align-center">
         <v-img :src="props.product.image"
                alt="card-image"
-               class="product-img h-auto w-auto "
+               class="product-img h-auto w-auto"
         ></v-img>
       </div>
 
