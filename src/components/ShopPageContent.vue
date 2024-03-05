@@ -7,6 +7,8 @@ import ProductService, {IProduct} from "@/services/product.ts"
 
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
+import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
+import {addToCart, getProductCounts} from "@/services/cart.ts";
 
 const props = defineProps(['parentFilter'])
 watch(props, (newVal) => {
@@ -29,6 +31,7 @@ watch(props, (newVal) => {
 
 onMounted(() => {
       inProcess.value = true
+      _productsInCart.value = getProductCounts()
 
       axios.all([
         getProductsList(),
@@ -69,13 +72,12 @@ watch(selectcategory, (newcategory) => {
 
   let req;
   if (!!newcategory) {
-    req = chooseProductBycategory(newcategory)
+    req = productService$.getProductListBycategory(newcategory, states.products)
   } else {
     req = getProductsList()
   }
 
   req.then((result) => {
-    states.products = result
     calculatedProducts.value = result
 
     inProcess.value = false
@@ -92,8 +94,18 @@ const calculatedProducts = computed({
   }
 })
 
-function chooseProductBycategory(category: string) {
-  return productService$.getProductListBycategory(category)
+const productsInCart = ref([])
+const _productsInCart = computed({
+  get() {
+    return productsInCart.value
+  },
+  set(products: Array<any>) {
+    productsInCart.value = products
+  }
+})
+
+const isInCart = (productId: number) => {
+  return productsInCart.value.find(el => el.id === productId)
 }
 
 function getProductsList() {
@@ -128,11 +140,16 @@ function filterByFormValues() {
   }
 }
 
+function setIntoCart(productId: string, product: IProduct) {
+  addToCart(product)
+}
+
 function resetAndGetList() {
   handleReset()
 
   calculatedProducts.value = states.products
 }
+
 </script>
 
 <template>
@@ -204,7 +221,16 @@ function resetAndGetList() {
             >
               <ProductListItem
                   :product="product"
-              ></ProductListItem>
+                  @productInfo="(n) => {$router.push({ name: 'ProductCard', params: { id: n } })}"
+              >
+                <template #buttons>
+                  <AddThenGoToCartButton :product-id="product.id"
+                                         :is-in-cart="isInCart(product.id)"
+                                         @emit-product-to-cart="(id) => setIntoCart(id, product)"
+                  >
+                  </AddThenGoToCartButton>
+                </template>
+              </ProductListItem>
             </v-col>
           </v-row>
         </v-container>

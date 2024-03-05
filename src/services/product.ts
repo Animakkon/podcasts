@@ -31,4 +31,14 @@ export default class ProductService {
         return post(url, body, {}, BASE_URL)
     }
 
+    getProductById(id: string) {
+        const url = `${ENDPOINTS.Products}/${id}`
+        return get(url, {}, BASE_URL)
+    }
+
+    getProductListBycategory(cathegory: string, list: Array<IProduct>) {
+        const res = list.filter((product) => product.category === cathegory)
+        return Promise.resolve(res)
+    }
+
 }

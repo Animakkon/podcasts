@@ -15,6 +15,11 @@ import { fa } from 'vuetify/iconsets/fa'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import '@mdi/font/css/materialdesignicons.css'
 import "@fortawesome/fontawesome-free/css/all.css";
+import 'vuetify/dist/vuetify.min.css';
+
+import {createPinia} from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
 
 const vuetify = createVuetify({
     components,
@@ -30,6 +35,10 @@ const vuetify = createVuetify({
 })
 
 const app = createApp(App)
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
 
 app.use(router)
 app.use(vuetify)
