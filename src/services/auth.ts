@@ -1,9 +1,9 @@
 import {ICredentialsInfo, toLogIn, toLogOut} from "../api/AAuth.ts";
-import { userAuthStore } from '@/store-pinia/userAuthStore.ts'
+import {useUserAuthStore} from "../store-pinia/userAuthStore.ts";
 
 
 function _authStore() {
-    return userAuthStore()
+    return useUserAuthStore()
 }
 
 export async function login(credentials: ICredentialsInfo) {

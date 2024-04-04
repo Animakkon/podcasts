@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {reactive, ref} from "vue";
 import {ICredentialsInfo} from "@/services/auth.js";
 
-export const userAuthStore = defineStore('userAuth',
+export const useUserAuthStore = defineStore('userAuth',
     () => {
         const authorisation = ref(false)
         const credentials: ICredentialsInfo = reactive({
