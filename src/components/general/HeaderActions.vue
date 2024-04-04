@@ -18,8 +18,7 @@ function toLogOut() {
   window.location.reload()
 }
 
-const fullCart = ref(false)
-const checkCart = computed(() => fullCart.value = getCartProducts().length > 0)
+const checkCart = computed(() => getCartProducts().length > 0)
 
 </script>
 
