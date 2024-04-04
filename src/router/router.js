@@ -35,7 +35,7 @@ const routes = [
     },
     {
         path: '/product_create',
-        name: 'CeateProduct',
+        name: 'CreateProduct',
         component: ProductCreatePage
     },
 
@@ -53,7 +53,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    if (!isAuthorized() && to.name === "CeateProduct") {
+    if (!isAuthorized() && to.name === "CreateProduct") {
         next({
             path: "login",
             replace: true
