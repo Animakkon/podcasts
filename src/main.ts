@@ -19,11 +19,18 @@ import 'vuetify/dist/vuetify.min.css';
 
 import {createPinia} from "pinia";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import pinkCustomTheme from '../public/theme/ColorScheme.ts';
 
 
 const vuetify = createVuetify({
     components,
     directives,
+    theme: {
+        defaultTheme: 'pinkCustomTheme',
+        themes: {
+            pinkCustomTheme
+        }
+    },
     icons: {
         defaultSet: 'mdi',
         aliases,
