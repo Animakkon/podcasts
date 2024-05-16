@@ -1,4 +1,4 @@
-import { get, post } from '../services/httpAxiosRequests.ts'
+import { get, post } from '../httpAxiosRequests.ts'
 
 const BASE_URL = "https://fakestoreapi.com"
 

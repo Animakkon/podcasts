@@ -4,6 +4,8 @@ import {computed, onBeforeMount, onMounted, reactive, ref} from "vue";
 import {isAuthorized, logout} from "@/services/auth.ts";
 import {getCartProducts, getCartTotalsSum} from "@/services/cart.ts";
 const menu = menuItems;
+import {isAuthorized, logout} from "@/services/data/auth.js";
+import {getCartProducts, getCartTotalsSum} from "@/services/data/cart.js";
 
 let authorized = ref(false)
 let cartCounts = ref(0)

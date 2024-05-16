@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
-import ProductService from '@/services/product.ts'
+import ProductService from '@/services/data/product.js'
 import {useForm, useField} from "vee-validate";
 import { useRouter } from 'vue-router'
 

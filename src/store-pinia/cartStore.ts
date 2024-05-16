@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {reactive, ref} from "vue";
-import {IProduct} from "../services/product.ts";
+import {IProduct} from "../services/data/product.ts";
 
 export const useCartStore = defineStore('cartStore',
     () => {

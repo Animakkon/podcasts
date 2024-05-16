@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import {useField, useForm} from "vee-validate";
-import {ICredentialsInfo, login} from "@/services/auth.js";
+import {ICredentialsInfo, login} from "@/services/data/auth.js";
 import { useRouter } from 'vue-router'
 
 const {handleSubmit} = useForm({

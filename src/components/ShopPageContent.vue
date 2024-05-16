@@ -3,12 +3,12 @@ import {ref, reactive, computed, onMounted, watch} from "vue"
 import axios from "axios";
 import {useField, useForm} from "vee-validate";
 
-import ProductService, {IProduct} from "@/services/product.ts"
+import ProductService, {IProduct} from "@/services/data/product.js"
 
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
-import {addToCart, getProductCounts} from "@/services/cart.ts";
+import {addToCart, getProductCounts} from "@/services/data/cart.js";
 
 const props = defineProps(['parentFilter'])
 watch(props, (newVal) => {

@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import { isAuthorized } from '@/services/auth.ts'
+import { isAuthorized } from '@/services/data/auth.ts'
 import Login from '@/components/general/Login.vue'
 import ShopPage from "@/components/ShopPage.vue";
 import CartPage from "@/components/CartPage.vue";

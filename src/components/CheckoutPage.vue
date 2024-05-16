@@ -5,7 +5,7 @@ import ContentTemplate from "@/components/templates/ContentTemplate.vue";
 import {vMaska} from "maska";
 
 import {useField, useForm} from "vee-validate";
-import { checkout } from "@/services/cart.ts";
+import { checkout } from "@/services/data/cart.js";
 
 function back() {
   window.history.back()

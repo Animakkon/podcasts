@@ -10,7 +10,7 @@ import {
   getProductCounts,
   addOneProduct,
   getAllSummaries, deleteProductFromCart
-} from "@/services/cart.ts";
+} from "@/services/data/cart.js";
 
 const productsList = ref([])
 const productsComputed = computed(() => productsList.value = getCartProducts())

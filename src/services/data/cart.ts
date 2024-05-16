@@ -1,11 +1,11 @@
-import {checkout} from "../api/ACheckout.ts";
+import {checkout} from "../../api/ACheckout.ts";
 
 export function checkout(value: any) {
     const url = 'post'
     const body = JSON.stringify(value)
 }
 
-import {useCartStore} from "../store-pinia/cartStore.ts";
+import {useCartStore} from "../../store-pinia/cartStore.ts";
 import {IProduct} from "./product.ts";
 function _cartStore() {
     return useCartStore();

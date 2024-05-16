@@ -4,10 +4,10 @@ import {useRoute} from "vue-router";
 import PageTemplate from "@/components/templates/PageTemplate.vue";
 import ContentTemplate from "@/components/templates/ContentTemplate.vue";
 import Loader from "@/components/general/Loader.vue";
-import ProductService from "@/services/product.ts";
+import ProductService from "@/services/data/product.js";
 import BackButton from "@/components/components/BackButton.vue";
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
-import {addToCart, isInCart} from "@/services/cart.ts";
+import {addToCart, isInCart} from "@/services/data/cart.js";
 
 onMounted(() => {
   inProcess.value = true
