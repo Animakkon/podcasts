@@ -70,12 +70,6 @@ function setIntoCart() {
 
 <template>
   <page-template>
-    <template #header>
-      <div class="d-block">
-        <h2>Карточка продукта: </h2>
-      </div>
-    </template>
-
     <template #main>
       <content-template>
         <Loader v-if="isLoading"></Loader>

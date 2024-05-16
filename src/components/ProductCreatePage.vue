@@ -81,18 +81,12 @@ const submit = handleSubmit((values) => {
   })
 })
 
-// const src = "https://t4.ftcdn.net/jpg/02/46/83/35/360_F_246833511_SaVmj4nH0HEvcVqsraod30AdKFFMibB1.jpg"
-// const src = "https://media.istockphoto.com/id/178634787/photo/welsh-corgie-pembroke.jpg?s=612x612&w=0&k=20&c=KgDlms6g4NHRFcPs4DAGgmJbzR61koJnb19kAPoYcMc="
 const src = "https://media.istockphoto.com/id/947171010/id/foto/anjing-pembroke-korgy-welsh.jpg?s=612x612&w=0&k=20&c=sHbLuUl86UWCu_d3qlnk4Y5obpw1rlJS-iNQnIhlEDE="
 
 </script>
 
 <template>
   <page-template>
-    <template #header>
-      <h2>Создание продукта</h2>
-    </template>
-
     <template #main>
       <content-template>
         <template #central-content>
