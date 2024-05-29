@@ -32,6 +32,9 @@ function findCountByProductId(id: number) {
   return countByProduct.value.find((el) => el.id == id).count;
 }
 
+const productSumComputed = computed(() => (product: any) => !!product ? findCountByProductId(product.id) * product.price : 0
+)
+
 const addition = (id: number, price: number) => addOneProduct(id, price)
 const substraction = (id: number, price: number) => deleteOneProduct(id, price)
 
@@ -112,7 +115,7 @@ const del = (id: number, price: number, count: number) => deleteProductFromCart(
 
               <v-col id="price">
                 <h6 class="price_for_one">{{ product.price }}$</h6>
-                <h5>{{ (findCountByProductId(product.id) * product.price).toFixed(2) }} $</h5>
+                <h5>{{ productSumComputed(product).toFixed(2) }} $</h5>
               </v-col>
 
             </v-container>
