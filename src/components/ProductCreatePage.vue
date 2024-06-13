@@ -13,7 +13,7 @@ const productService$ = new ProductService()
 
 onMounted(() => {
   inProcess.value = true
-  productService$.getAllCathegories().then((result) => {
+  productService$.getAllCategories().then((result) => {
     cathegories.value = result
     inProcess.value = false
   })
