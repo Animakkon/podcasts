@@ -43,16 +43,12 @@ const del = (id: number, price: number, count: number) => deleteProductFromCart(
 
 <template>
   <page-template>
-    <template #header>
-      <h2>Корзина</h2>
-    </template>
-
     <template #main>
       <content-template>
         <template #left-content>
           <div class="mb-4">
-            <p>ИТОГО:<sup>{{totalCounts.productsCount}}</sup></p>
-            <h2>{{(totalCounts.priceSum).toFixed(2)}} $</h2>
+            <p>ИТОГО:<sup>{{ totalCounts.productsCount }}</sup></p>
+            <h2>{{ (totalCounts.priceSum).toFixed(2) }} $</h2>
           </div>
 
           <div class="mb-4">
