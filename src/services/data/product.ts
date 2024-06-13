@@ -1,4 +1,5 @@
 import { get, post } from '../httpAxiosRequests.ts'
+import {useProductsStore} from "../../store-pinia/productsStore.ts";
 
 const BASE_URL = "https://fakestoreapi.com"
 
@@ -17,11 +18,20 @@ export interface IProduct {
 }
 
 export default class ProductService {
+    _productsStore() {
+        return useProductsStore();
+    }
+
+    returnProductList() {
+        const productsList = this._productsStore().productsList
+        return productsList
+    }
+
     getAllProductList() {
         return get('products', {}, BASE_URL)
     }
 
-    getAllCathegories() {
+    getAllCategories() {
         const url = `${ENDPOINTS.Products}/${ENDPOINTS.Categories}`
         return get(url, {}, BASE_URL);
     }
