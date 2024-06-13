@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
-import {reactive, ref} from "vue";
+import {reactive, ref, watch} from "vue";
 import {ICredentialsInfo} from "@/services/auth.js";
+import {usePersonalInfoStore} from "./personalInfoStore.ts";
 
 export const useUserAuthStore = defineStore('userAuth',
     () => {
@@ -18,16 +19,20 @@ export const useUserAuthStore = defineStore('userAuth',
             authorisation.value = value
         }
 
-        const getUserLogin = () => {
-            return credentials.login
-        }
-
-        const setUserCredentialsAndAuthStatus = (credentials: ICredentialsInfo, authStatus: boolean) => {
-            credentials.login = credentials.user
-            credentials.password = credentials.password
+        const setUserCredentialsAndAuthStatus = (creds: ICredentialsInfo, authStatus: boolean) => {
+            credentials.user = creds.user
+            credentials.password = creds.password
 
             setIsAuthorized(authStatus)
         }
+
+        function _personalInfoStore() {
+            return usePersonalInfoStore();
+        }
+
+        watch( (credentials), () => {
+           _personalInfoStore().buildPersonalInfo(credentials.user)
+        })
 
         return {
             authorisation,
