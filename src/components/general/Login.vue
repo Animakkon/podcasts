@@ -87,7 +87,4 @@ const submit = handleSubmit(() => {
 </template>
 
 <style>
-.v-btn__content {
-  color: #EDF3F7;
-}
 </style>
