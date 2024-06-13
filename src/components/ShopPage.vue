@@ -3,11 +3,11 @@ import {useRoute} from 'vue-router'
 import PageTemplate from "@/components/templates/PageTemplate.vue"
 import Content from "@/components/ShopPageContent.vue"
 
-
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
+import Loader from "@/components/general/Loader.vue";
+import {useProductsStore} from "@/store-pinia/productsStore.ts";
 
 const route = useRoute()
-const pageTitle = ref(route.name)
 
 const searchValue = ref('');
 const childProp = ref('')
@@ -21,29 +21,34 @@ function reset() {
   childProp.value = ''
   searchValue.value = ''
 }
+
+const _productsStore = () => useProductsStore()
+let loading = computed(() => _productsStore().isLoadingCatalog)
+let products = computed(() => _productsStore().catalog)
+
 </script>
 
 <template>
   <page-template>
     <template #header>
       <v-text-field v-model="searchValue"
-                    :hint="'Press ENTER to Submit'"
                     @keydown.enter.prevent="submit"
+                    @click:clear="reset"
+                    hide-details="auto"
                     type="text"
                     label="Поиск"
                     prepend-inner-icon="mdi-magnify"
                     variant="underlined"
+                    clearable
       ></v-text-field>
-      <v-btn @click="reset"
-             :disabled="!searchValue.length"
-             size="small"
-             icon="mdi-close-circle-outline"
-             tooltip="Reset"
-             color="brown-darken-1"></v-btn>
     </template>
 
     <template #main>
-      <Content :parentFilter="childProp"></Content>
+      <Loader v-show="loading"/>
+      <Content v-show="!loading"
+               :parentFilter="childProp"
+               :PROD_LIST="products"
+      ></Content>
     </template>
   </page-template>
 </template>
@@ -58,5 +63,4 @@ function reset() {
   background: lightgray;
   margin-bottom: 20px;
 }
-
 </style>
