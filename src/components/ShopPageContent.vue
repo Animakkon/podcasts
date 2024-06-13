@@ -10,13 +10,16 @@ import ProductListItem from "./ShopPageContentProductsItems.vue"
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
 import {addToCart, getProductCounts} from "@/services/data/cart.js";
 
-const props = defineProps(['parentFilter'])
+const props = defineProps([
+    'parentFilter',
+    'PROD_LIST',
+])
+    // поиск из родительской шапки
 watch(props, (newVal) => {
-
   if (props.parentFilter && props.parentFilter.length) {
     inProcess.value = true
 
-    const filtered = states.products.filter((el: IProduct) => el.title.toString().toLowerCase().includes(props.parentFilter.toString().toLowerCase())
+    const filtered = props.PROD_LIST.filter((el: IProduct) => el.title.toString().toLowerCase().includes(props.parentFilter.toString().toLowerCase())
         || el.price.toString().toLowerCase().includes(props.parentFilter.toString().toLowerCase())
     )
 
@@ -30,23 +33,15 @@ watch(props, (newVal) => {
 })
 
 onMounted(() => {
-      inProcess.value = true
-      _productsInCart.value = getProductCounts()
+  inProcess.value = true
+  _productsInCart.value = getProductCounts()
 
-      axios.all([
-        getProductsList(),
-        getCathegoriesList()
-      ]).then(
-          axios.spread((_products, _cathegories) => {
-            states.products = _products
-            states.cathegories = _cathegories
+  getCategoriesList().then((_categories) => {
+    states.categories = _categories
+    inProcess.value = false
+  })
 
-            calculatedProducts.value = states.products
-
-            inProcess.value = false
-          })
-      )
-      return null
+  calculatedProducts.value = props.PROD_LIST
     }
 )
 
@@ -62,9 +57,8 @@ let inProcess = computed({
 
 const productService$ = new ProductService()
 let states = reactive({
-  products: [],
-  cathegories: []
-});
+  categories: []
+})
 
 const selectcategory = ref('')
 watch(selectcategory, (newcategory) => {
@@ -72,16 +66,14 @@ watch(selectcategory, (newcategory) => {
 
   let req;
   if (!!newcategory) {
-    req = productService$.getProductListBycategory(newcategory, states.products)
+    req = productService$.getProductListBycategory(newcategory, props.PROD_LIST).then((result) => {
+      calculatedProducts.value = result
+      inProcess.value = false
+    })
   } else {
-    req = getProductsList()
-  }
-
-  req.then((result) => {
-    calculatedProducts.value = result
-
+    calculatedProducts.value = props.PROD_LIST
     inProcess.value = false
-  })
+  }
 })
 
 let products = ref([])
@@ -108,12 +100,8 @@ const isInCart = (productId: number) => {
   return productsInCart.value.find(el => el.id === productId)
 }
 
-function getProductsList() {
-  return productService$.getAllProductList()
-}
-
-function getCathegoriesList() {
-  return productService$.getAllCathegories()
+function getCategoriesList() {
+  return productService$.getAllCategories()
 }
 
 const {handleReset} = useForm()
@@ -130,7 +118,7 @@ function filterByFormValues() {
   if (hasTitle || hasMaxVal) {
     inProcess.value = true
 
-    const filtered = states.products.filter((el) => hasTitle && el.title.toLowerCase().includes(titleVal.toLowerCase().toString()) || hasMaxVal && el.price >= priceVal[0] && el.price <= priceVal[1])
+    const filtered = props.PROD_LIST.filter((el) => hasTitle && el.title.toLowerCase().includes(titleVal.toLowerCase().toString()) || hasMaxVal && el.price >= priceVal[0] && el.price <= priceVal[1])
 
     calculatedProducts.value = filtered
 
@@ -144,10 +132,11 @@ function setIntoCart(productId: string, product: IProduct) {
   addToCart(product)
 }
 
+// прийти к исходному списку,
 function resetAndGetList() {
   handleReset()
 
-  calculatedProducts.value = states.products
+  calculatedProducts.value = props.PROD_LIST
 }
 
 </script>
@@ -157,10 +146,10 @@ function resetAndGetList() {
     <v-row>
       <v-col cols="2">
         <h3>Filter:</h3>
-        <v-combobox :items="states.cathegories"
+        <v-combobox :items="states.categories"
                     :disabled="isLoading"
                     v-model="selectcategory"
-                    label="cathegories"
+                    label="categories"
                     clearable
         >
         </v-combobox>
