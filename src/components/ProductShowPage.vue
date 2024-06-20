@@ -12,9 +12,8 @@ import {addToCart, isInCart} from "@/services/data/cart.js";
 onMounted(() => {
   inProcess.value = true
 
-  titleProductId.value = route.params.id;
 
-  productService$.getProductById(titleProductId.value.value).then((res) => {
+  productService$.getProductById(productId.value).then((res) => {
     productToShow.value = res
 
     productInCart.value = isInCart(res.id)
@@ -27,16 +26,7 @@ onMounted(() => {
 const productService$ = new ProductService()
 
 const route = useRoute()
-
-const productId = ref(0)
-const titleProductId = computed({
-  get() {
-    return productId;
-  },
-  set(value) {
-    productId.value = value;
-  }
-})
+const productId = ref(route.params.id);
 
 const product = ref({})
 const productToShow = computed({
@@ -58,7 +48,6 @@ const inProcess = computed({
   }
 })
 
-
 const productInCart = ref(false)
 
 function setIntoCart() {
@@ -76,7 +65,7 @@ function setIntoCart() {
 
         <template #left-content>
           <AddThenGoToCartButton :is-in-cart="productInCart"
-                                 :product-id="titleProductId"
+                                 :product-id="productId"
                                  @emit-product-to-cart="(n) => setIntoCart()"
           ></AddThenGoToCartButton>
 
