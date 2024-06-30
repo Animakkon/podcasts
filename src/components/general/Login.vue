@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import {useField, useForm} from "vee-validate";
-import {ICredentialsInfo, login} from "@/services/auth.js";
+import {ICredentialsInfo, login} from "@/services/data/auth.js";
 import { useRouter } from 'vue-router'
 
 const {handleSubmit} = useForm({
@@ -32,11 +32,9 @@ const submit = handleSubmit(() => {
     password: password.value.value
   }
   login(creds).then((result: boolean) => {
-
     if (result) {
-      router.push('/')
+      router.push({name: 'CreateProduct'})
     }
-    return result
   });
 
 })
@@ -89,7 +87,4 @@ const submit = handleSubmit(() => {
 </template>
 
 <style>
-.v-btn__content {
-  color: #EDF3F7;
-}
 </style>

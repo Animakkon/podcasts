@@ -5,7 +5,7 @@ import ContentTemplate from "@/components/templates/ContentTemplate.vue";
 import {vMaska} from "maska";
 
 import {useField, useForm} from "vee-validate";
-import checkout from "@/services/cart.ts";
+import { checkout } from "@/services/data/cart.js";
 
 function back() {
   window.history.back()
@@ -85,9 +85,6 @@ const submit = handleSubmit((values) => {
 
 <template>
   <page-template>
-    <template #header>
-      <h2>Оформление заказа</h2>
-    </template>
 
     <template #main>
       <content-template>

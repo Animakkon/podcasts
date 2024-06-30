@@ -1,0 +1,15 @@
+:root {
+  --primary: #4D4D4D;
+  --primary-darken-1: #96455e;
+  --primary-light: #F8EFF2;
+  --surface: #FFFFFF;
+  --surface-light: #E4EEF2;
+  --surface-variant: #4D4D4D;
+  --on-surface-variant: #F8EFF2;
+  --secondary: #E4EEF2;
+  --secondary-darken-1: #7e98b1;
+  --error: #B00020;
+  --info: #03e1d6;
+  --success: #00c41c;
+  --warning: #FBD05D;
+}

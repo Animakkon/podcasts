@@ -1,5 +1,4 @@
-import { get } from "./httpAxiosRequests.ts"
-
+import { get } from "../services/httpAxiosRequests.ts"
 
 export interface ICredentialsInfo {
     user: string,
@@ -11,7 +10,7 @@ interface IAuthResponce {
     user: string
 }
 
-export async function login(credentials: ICredentialsInfo) {
+export async function toLogIn(credentials: ICredentialsInfo) {
     const btoaString = btoa(`${credentials.user}:${credentials.password}`);
     const url = `basic-auth/${credentials.user}/${credentials.password}`
     const headers = {
@@ -20,24 +19,10 @@ export async function login(credentials: ICredentialsInfo) {
 
     return await get(url, headers).then(function (response) {
         const result: IAuthResponce = response as IAuthResponce;
-        if (result.authenticated) {
-            localStorage.setItem('user', JSON.stringify(result));
-        }
         return result.authenticated;
     });
 }
 
-export function logout() {
-    localStorage.removeItem('user');
-}
-
-export function isAuthorized() {
-    const userData = localStorage.getItem('user');
-
-    if (userData) {
-        const auth = JSON.parse(userData).authenticated;
-        return auth
-    } else {
-        return false;
-    }
+export async function toLogOut() {
+   return true;
 }

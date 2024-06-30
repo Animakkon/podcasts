@@ -1,32 +1,75 @@
 <script setup lang="ts">
 import Actions from '@/components/general/HeaderActions.vue'
+import NavBtn from '@/components/general/NavigationButton.vue'
+
+import logoImage from '@assets/images/logo.png'
 </script>
 
 <template>
-  <header >
-      <Actions/>
+  <div>
+    <header class="d-flex header sticky">
+      <div class="d-flex header__left-side">
+        <div class="logo" @click="$router.push('/shop')">
+          <v-img :src="logoImage" :width="'100px'" :height="'100%'" class="mr-5"></v-img>
+        </div>
 
-    <v-container class="d-flex justify-center pa-0">
-      <v-col class="d-flex align-center" justify="center"
-             cols="6">
+        <NavBtn/>
+      </div>
 
-        <slot name="header" ></slot>
+      <div class="d-flex header__right-side">
 
-      </v-col>
-    </v-container>
+        <div id="page_header_content">
+          <slot name="header"></slot>
+        </div>
 
-    <v-divider></v-divider>
-  </header>
+        <Actions/>
+      </div>
 
-  <main>
-    <slot name="main"></slot>
-  </main>
+    </header>
 
-<!--  <footer>-->
-<!--    <slot name="footer"></slot>-->
-<!--  </footer>-->
+    <div class="main_article">
+      <slot name="main"></slot>
+    </div>
+  </div>
 
 </template>
 
-<style scoped>
+<style>
+@import "../../../public/theme/palette.css";
+
+header, article {
+  padding: 0px 72px;
+}
+
+.logo, #page_header_content {
+  mar-right: 20px;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.header {
+  background-color: var(--on-surface-variant);
+  justify-content: space-between;
+}
+
+.header__right-side {
+  flex: 0 2 560px;
+
+  #page_header_content {
+    flex: 0 2 512px
+  }
+}
+
+.main_article {
+  margin-top: 60px;
+}
+
+.sticky {
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  top: 0;
+}
 </style>
