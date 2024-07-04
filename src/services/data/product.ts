@@ -36,7 +36,7 @@ export default class ProductService {
         return get(url, {}, BASE_URL);
     }
 
-    createProduct(body:string) {
+    createProduct(body: string) {
         const url = `${ENDPOINTS.Products}`
         return post(url, body, {}, BASE_URL)
     }
@@ -50,5 +50,4 @@ export default class ProductService {
         const res = list.filter((product) => product.category === cathegory)
         return Promise.resolve(res)
     }
-
 }
