@@ -18,7 +18,6 @@ export const useProductsStore = defineStore('productsStore', () => {
 
     function GET_LIST() {
         isLoadingCatalog.value = true
-        console.log(" Я СДЕЛАЛ ЗАПРОС!!!!!!!!!!!!!!!!!!!!")
         $productsService.getAllProductList().then((_catalog) => {
             catalog.value = _catalog
             isLoadingCatalog.value = false
