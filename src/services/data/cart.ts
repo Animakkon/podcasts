@@ -10,6 +10,7 @@ import {IProduct} from "./product.ts";
 function _cartStore() {
     return useCartStore();
 }
+
 export function getCartTotalsSum() {
     return _cartStore().totalCounts.productsCount
 }
