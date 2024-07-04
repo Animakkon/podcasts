@@ -4,16 +4,15 @@ import {useRoute} from "vue-router";
 import PageTemplate from "@/components/templates/PageTemplate.vue";
 import ContentTemplate from "@/components/templates/ContentTemplate.vue";
 import Loader from "@/components/general/Loader.vue";
-import ProductService from "@/services/data/product.js";
 import BackButton from "@/components/components/BackButton.vue";
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
 import {addToCart, isInCart} from "@/services/data/cart.js";
+import {getProductById} from "src/services/data/product.ts";
 
 onMounted(() => {
   inProcess.value = true
 
-
-  productService$.getProductById(productId.value).then((res) => {
+  getProductById(productId.value).then((res) => {
     productToShow.value = res
 
     productInCart.value = isInCart(res.id)
@@ -22,8 +21,6 @@ onMounted(() => {
   })
 
 })
-
-const productService$ = new ProductService()
 
 const route = useRoute()
 const productId = ref(route.params.id);

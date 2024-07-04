@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
-import ProductService from '@/services/data/product.js'
 import {useForm, useField} from "vee-validate";
 import { useRouter } from 'vue-router'
+import {createProduct, getAllCategories} from 'src/services/data/product.ts'
 
 import PageTemplate from "@/components/templates/PageTemplate.vue";
 import ContentTemplate from "@/components/templates/ContentTemplate.vue";
 import Loader from "@/components/general/Loader.vue";
 
-const cathegories = ref([])
-const productService$ = new ProductService()
+const categories = ref([])
 
 onMounted(() => {
   inProcess.value = true
-  productService$.getAllCategories().then((result) => {
-    cathegories.value = result
+  getAllCategories().then((result) => {
+    categories.value = result
     inProcess.value = false
   })
 })
@@ -71,7 +70,7 @@ const submit = handleSubmit((values) => {
 
   const body = JSON.stringify(values)
 
-  productService$.createProduct(body).then(res => {
+  createProduct(body).then(res => {
     if (res) {
       setTimeout(() => {
         alert('УСПЕХ: товар создан')
@@ -121,7 +120,7 @@ const src = "https://media.istockphoto.com/id/947171010/id/foto/anjing-pembroke-
                   <v-combobox label="category"
                               v-model="category.value.value"
                               :error-messages="category.errorMessage.value"
-                              :items="cathegories"
+                              :items="categories"
                               clearable></v-combobox>
 
                   <v-text-field label="Price"

@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {computed, ref} from "vue";
-import ProductService from "../services/data/product.ts";
+import {getAllProductList} from '../services/data/product.ts'
 
 export const useProductsStore = defineStore('productsStore', () => {
     const catalog = ref([])
@@ -14,11 +14,9 @@ export const useProductsStore = defineStore('productsStore', () => {
         }
     })
 
-    const $productsService = new ProductService();
-
     function GET_LIST() {
         isLoadingCatalog.value = true
-        $productsService.getAllProductList().then((_catalog) => {
+        getAllProductList().then((_catalog) => {
             catalog.value = _catalog
             isLoadingCatalog.value = false
         })
