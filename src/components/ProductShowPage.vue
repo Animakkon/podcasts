@@ -6,8 +6,8 @@ import ContentTemplate from "@/components/templates/ContentTemplate.vue";
 import Loader from "@/components/general/Loader.vue";
 import BackButton from "@/components/components/BackButton.vue";
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
-import {addToCart, isInCart} from "@/services/data/cart.js";
-import {getProductById} from "src/services/data/product.ts";
+import {addToCart, isInCart} from "@/services/data/cart";
+import {getProductById} from "@/services/data/product";
 
 onMounted(() => {
   inProcess.value = true

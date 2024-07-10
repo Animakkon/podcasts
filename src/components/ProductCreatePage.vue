@@ -2,7 +2,7 @@
 import {computed, onMounted, ref} from "vue";
 import {useForm, useField} from "vee-validate";
 import { useRouter } from 'vue-router'
-import {createProduct, getAllCategories} from 'src/services/data/product.ts'
+import {createProduct, getAllCategories} from '@/services/data/product'
 
 import PageTemplate from "@/components/templates/PageTemplate.vue";
 import ContentTemplate from "@/components/templates/ContentTemplate.vue";

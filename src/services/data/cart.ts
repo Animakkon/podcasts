@@ -1,5 +1,3 @@
-import {checkout} from "../../api/ACheckout.ts";
-
 export function checkout(value: any) {
     const url = 'post'
     const body = JSON.stringify(value)
