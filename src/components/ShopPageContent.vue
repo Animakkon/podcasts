@@ -7,8 +7,8 @@ import {IProduct} from "src/services/data/product.ts"
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
-import {addToCart, getProductCounts} from "@/services/data/cart.js";
-import {getProductListBycategory, getAllCategories} from "src/services/data/product.ts";
+import {addToCart, getProductCounts} from "@/services/data/cart.ts";
+import {getProductListBycategory, getAllCategories} from "@/services/data/product.ts";
 
 const props = defineProps([
     'parentFilter',
