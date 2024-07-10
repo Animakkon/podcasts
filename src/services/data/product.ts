@@ -22,7 +22,7 @@ export async function getProductListBycategory(category: string, list: Array<IPr
 }
 
 export async function getAllProductList() {
-    return get('products', {}, BASE_URL)
+    return get('products', {}, BASE_URL, 'product.ts')
 }
 
 export async function createProduct(body: string) {
