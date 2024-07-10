@@ -2,14 +2,23 @@ import axios from "axios";
 
 const BASE_URL = "https://httpbin.org"
 
-export async function get(url: string, headers?: {[k: string]: any}, base?: string, place?: string) {
+export async function get(
+    url: string,
+    headers?: {[k: string]: any},
+    base?: string,
+    place?: string
+) {
     const str = base ? base : BASE_URL
 
-    return axios.get( `${str}/${url}`, {
-        headers: headers
-    })
-        .then(response => response.data )
-        .catch(() => console.log('$Get ERROR$: ', place));
+    try{
+        const response = await axios.get( `${str}/${url}`,{ headers: headers });
+        console.log('no - ', response)
+        return response.data;
+    }catch(e){
+        console.log(e)
+        console.log('$Get ERROR$: ', place, `${str}/${url}`);
+        return Promise.reject(null) ;
+    }
 }
 
 export async function post(url: string, body: string, headers?: {[k: string]: any}, base?: string, place?: string) {
