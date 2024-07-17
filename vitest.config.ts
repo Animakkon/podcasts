@@ -8,7 +8,7 @@ export default defineConfig({
         exclude: ['node_modules', 'tests/e2e'],
         globals: true,
         environment: "jsdom",
-        setupFiles: path.resolve(__dirname, './vitest.setup.js'), // моки лежали
+        setupFiles: path.resolve(__dirname, './vitest.setup.js'),
         coverage: {
             reporter: ['text', 'json', 'html'],
         },
