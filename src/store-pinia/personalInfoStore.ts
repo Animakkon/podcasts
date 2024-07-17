@@ -26,7 +26,7 @@ export const usePersonalInfoStore = defineStore('personalInfo', () => {
             if (personLogin.length) {
                 setPersonInfoByLogin(personLogin)
                     .then(res => {
-                        fill(res);
+                        setDataIntoPersonInfo(res);
                     });
                 // установка информации для конкретного пользователя
 
@@ -35,7 +35,7 @@ export const usePersonalInfoStore = defineStore('personalInfo', () => {
             }
         }
 
-        function fill(data: IPersonInfo) {
+        function setDataIntoPersonInfo(data: IPersonInfo) {
             personInfo.value = data as IPersonInfo;
         }
 
