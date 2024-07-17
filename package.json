@@ -7,7 +7,8 @@
     "go": "vite --open",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run coverage"
   },
   "dependencies": {
     "@mdi/font": "^7.3.67",
