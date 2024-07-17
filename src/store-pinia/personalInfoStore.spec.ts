@@ -2,6 +2,7 @@ import {beforeEach, describe, it, expect} from "vitest";
 import {createPinia, setActivePinia} from "pinia";
 import {usePersonalInfoStore} from "./personalInfoStore.ts";
 import * as personInfoAPI from "../api/APerson.ts";
+import {flushPromises} from "@vue/test-utils";
 
 function checkIsIPersonInfoType(value: any): Boolean {
     return typeof value.id === 'string' &&
@@ -49,10 +50,8 @@ describe('PERSONAL INFO STORE', () => {
 
             await personalStore.buildPersonalInfo('1')
 
-            // не успевают обновиться данные. Без задержки еще пустой пользователь
-            setTimeout(() => {
-                expect(personalStore.personInfo).toEqual(firstPersonMock)
-            }, 1000)
+            await flushPromises()
+            expect(personalStore.personInfo).toEqual(firstPersonMock)
         })
 
         it('returns empty personInfo if loggedOut', async () => {
@@ -60,10 +59,9 @@ describe('PERSONAL INFO STORE', () => {
 
             await personalStore.buildPersonalInfo('')
 
-            // не успевают обновиться данные
-            setTimeout(() => {
-                expect(personalStore.personInfo).toEqual(emptyPersonMock)
-            }, 1000)
+            await flushPromises()
+
+            expect(personalStore.personInfo).toEqual(emptyPersonMock)
         })
     })
 
