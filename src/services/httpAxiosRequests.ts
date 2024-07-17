@@ -12,7 +12,6 @@ export async function get(
 
     try{
         const response = await axios.get( `${str}/${url}`,{ headers: headers });
-        console.log('no - ', response)
         return response.data;
     }catch(e){
         console.log(e)
