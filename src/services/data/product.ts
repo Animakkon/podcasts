@@ -16,13 +16,13 @@ export interface IProduct {
     image: string
 }
 
-export async function getProductListBycategory(category: string, list: Array<IProduct>) {
-    const res = list.filter((product) => product.category === category)
-    return Promise.resolve(res)
-}
-
 export async function getAllProductList() {
     return get('products', {}, BASE_URL, 'product.ts')
+}
+
+export async function getProductListByCategory(category: string, list: Array<IProduct>) {
+    const res = list.filter((product) => product.category === category)
+    return Promise.resolve(res)
 }
 
 export async function createProduct(body: string) {
