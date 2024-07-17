@@ -1,3 +1,4 @@
+/* ----     PRODUCTS MOCK       ---- */
 global.productsMock = [
     {
         id: 1,
@@ -36,4 +37,37 @@ global.mensClothingProductMock = {
     category: "men's clothing",
     image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
     rating: {"rate":3.9,"count":120}
+}
+
+/* ----     PERSON STORE MOCK       ---- */
+global.emptyPersonMock = {
+    id: '',
+    name: '',
+    surname: '',
+    lastName: '',
+    dateBirth: '',
+    image: '',
+    data: {
+        address: [],
+        cards: [],
+        credentialsToShow: {
+            login: ''
+        }
+    }
+}
+
+global.firstPersonMock = {
+    id: '1',
+    name: 'Олег',
+    surname: 'Разутчиков',
+    lastName: 'Олегович',
+    dateBirth: '16.05.1986',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMlg5oh_-aZTbY88facOyXmgaKy03z3qaOfw&s',
+    data: {
+        address: [],
+        cards: [],
+        credentialsToShow: {
+            login: '1'
+        }
+    }
 }

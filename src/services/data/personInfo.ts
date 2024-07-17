@@ -3,7 +3,7 @@ import {IPersonInfo} from "../../../public/dataTypes/dataTypes.ts";
 import {usePersonalInfoStore} from "../../store-pinia/personalInfoStore.ts";
 
 
-    export function setPersonInfoByLogin(login: string): Promise<IPersonInfo> {
+    export async function setPersonInfoByLogin(login: string): Promise<IPersonInfo> {
         return getPersonInfo(login);
     }
 
