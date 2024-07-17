@@ -8,7 +8,7 @@ import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
 import {addToCart, getProductCounts} from "@/services/data/cart.ts";
-import {getProductListBycategory, getAllCategories} from "@/services/data/product.ts";
+import {getProductListByCategory, getAllCategories} from "@/services/data/product.ts";
 
 const props = defineProps([
     'parentFilter',
@@ -64,7 +64,7 @@ watch(selectcategory, (newcategory) => {
   inProcess.value = true
 
   if (!!newcategory) {
-    getProductListBycategory(newcategory, props.PROD_LIST).then((result) => {
+    getProductListByCategory(newcategory, props.PROD_LIST).then((result) => {
       calculatedProducts.value = result
       inProcess.value = false
     })
