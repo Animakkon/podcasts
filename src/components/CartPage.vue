@@ -72,8 +72,10 @@ const del = (id: number, price: number, count: number) => deleteProductFromCart(
           <v-container>
             <v-container v-for="product in productsComputed"
                          id="cartProduct"
-                         class="d-flex">
-              <v-col id="image">
+                         class="d-flex"
+                         data-testId="product"
+            >
+                <v-col id="image">
                 <v-img
                     :src="product.image"
                     alt="Битая ссылка. Введите другое значение"
@@ -82,36 +84,41 @@ const del = (id: number, price: number, count: number) => deleteProductFromCart(
                 </v-img>
               </v-col>
 
-              <v-col id="info" class="flex-column">
-                <p>{{ product.title }}</p>
+                <v-col id="info" class="flex-column">
+                <p data-testid="product_title">{{ product.title }}</p>
 
                 <br>
                 <v-divider></v-divider>
 
                 <v-container class="d-flex justify-space-between">
                   <v-btn @click="addition(product.id, product.price)" color="green" size="x-small"
+                         data-testId="product_addBtn"
                   >
                     <v-icon icon="mdi-plus" color="white"></v-icon>
                   </v-btn>
 
-                  {{ findCountByProductId(product.id) }}
+                  <span data-testId="product_countBetweenButtons">{{ findCountByProductId(product.id) }}</span>
 
                   <v-btn @click="substraction(product.id, product.price)"
                          :disabled="findCountByProductId(product.id) === 1"
-                         :color="findCountByProductId(product.id) === 1 ? 'grey' : 'red'" size="x-small">
+                         :color="findCountByProductId(product.id) === 1 ? 'grey' : 'red'" size="x-small"
+                  >
                     <v-icon icon="mdi-minus"
                             :color="(findCountByProductId(product.id) === 1) ? 'grey' : 'white'"></v-icon>
                   </v-btn>
 
-                  <v-btn @click="del(product.id, product.price, findCountByProductId(product.id))" size="x-small">
+                  <v-btn @click="del(product.id, product.price, findCountByProductId(product.id))"
+                         size="x-small"
+                         data-testId="product_delBtn"
+                  >
                     <v-icon icon="mdi-trash-can-outline" color="grey-darken-3"></v-icon>
                   </v-btn>
                 </v-container>
               </v-col>
 
-              <v-col id="price">
-                <h6 class="price_for_one">{{ product.price }}$</h6>
-                <h5>{{ productSumComputed(product).toFixed(2) }} $</h5>
+                <v-col id="price">
+                <h6 class="price_for_one" data-testid="product_price">{{ product.price }}$</h6>
+                <h5 data-testid="product_totalSum">{{ productSumComputed(product).toFixed(2) }} $</h5>
               </v-col>
 
             </v-container>
