@@ -3,7 +3,7 @@ import IBtn from "@/components/components/ui/IconButton.vue";
 
 import {computed, onMounted, ref} from "vue";
 import {isAuthorized, logout} from "@/services/data/auth.js";
-import {getCartProducts, getCartTotalsSum} from "@/services/data/cart.js";
+import {getCartProducts, getCartTotalsCounts} from "@/services/data/cart.js";
 
 import EWDialog from "@/components/components/EWDialog.vue";
 
@@ -12,7 +12,7 @@ const isShowLogout = computed(() => isAuthorized())
 let cartCounts = ref(0)
 
 onMounted(() => {
-  cartCounts = getCartTotalsSum()
+  cartCounts = getCartTotalsCounts()
 })
 
 const checkCart = computed(() => getCartProducts().length > 0)

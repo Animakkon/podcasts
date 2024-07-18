@@ -9,7 +9,7 @@ function _cartStore() {
     return useCartStore();
 }
 
-export function getCartTotalsSum() {
+export function getCartTotalsCounts() {
     return _cartStore().totalCounts.productsCount
 }
 
