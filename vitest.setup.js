@@ -71,3 +71,8 @@ global.firstPersonMock = {
         }
     }
 }
+/* ----     AUTH STORE MOCK       ---- */
+global.credentials = {
+    user: '1',
+    password: '1'
+}
