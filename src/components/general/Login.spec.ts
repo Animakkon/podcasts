@@ -1,10 +1,8 @@
-import {flushPromises, mount} from "@vue/test-utils";
+import {mount} from "@vue/test-utils";
 import Login from "./Login.vue";
 import {createVuetify} from "vuetify";
 import {components, directives} from "vuetify/dist/vuetify";
-import {useRouter} from "vue-router";
 import {afterEach, beforeEach, expect} from "vitest";
-import waitForExpect from "wait-for-expect";
 
 vi.mock('vue-router', () => ({
     useRouter: vi.fn(),
