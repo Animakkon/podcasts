@@ -209,11 +209,13 @@ function resetAndGetList() {
               <ProductListItem
                   :product="product"
                   @productInfo="(n) => {$router.push({ name: 'ProductCard', params: { id: n } })}"
+                  data-testId="product_item"
               >
                 <template #buttons>
                   <AddThenGoToCartButton :product-id="product.id"
                                          :is-in-cart="isInCart(product.id)"
                                          @emit-product-to-cart="(id) => setIntoCart(id, product)"
+                                         data-testId="product_item__addBtn"
                   >
                   </AddThenGoToCartButton>
                 </template>
