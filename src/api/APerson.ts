@@ -20,7 +20,7 @@ const FIRST: IPersonInfo = {
     data: {
         address: [],
         cards: [],
-        credetialsToShow: {
+        credentialsToShow: {
             login: '1'
         }
     }

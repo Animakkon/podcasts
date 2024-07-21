@@ -1,19 +1,13 @@
 <script lang="ts" setup>
 import IBtn from "@/components/components/ui/IconButton.vue";
 
-import {computed, onMounted, ref} from "vue";
+import {computed} from "vue";
 import {isAuthorized, logout} from "@/services/data/auth.js";
-import {getCartProducts, getCartTotalsSum} from "@/services/data/cart.js";
+import {getCartProducts} from "@/services/data/cart.js";
 
 import EWDialog from "@/components/components/EWDialog.vue";
 
 const isShowLogout = computed(() => isAuthorized())
-
-let cartCounts = ref(0)
-
-onMounted(() => {
-  cartCounts = getCartTotalsSum()
-})
 
 const checkCart = computed(() => getCartProducts().length > 0)
 const buildCartVariant = computed(() => {
@@ -33,9 +27,10 @@ function toLogOut() {
           :text="'Корзина'"
           :variant="buildCartVariant"
           @click="$router.push('/cart')"
+          data-testId="cart_button"
     ></IBtn>
 
-    <div v-show="isShowLogout">
+    <div v-show="isShowLogout" data-testId="user_modal_button">
       <EWDialog></EWDialog>
     </div>
 
@@ -44,6 +39,7 @@ function toLogOut() {
           :icon="'mdi-logout'"
           :text="'Выход'"
           @click="toLogOut"
+          data-testId="logout_button"
     ></IBtn>
 
     <IBtn v-show="!isShowLogout"
@@ -51,6 +47,7 @@ function toLogOut() {
           :icon="'mdi-login'"
           :text="'Вход'"
           @click="$router.push('/login')"
+          data-testId="login_button"
     ></IBtn>
 
   </div>

@@ -69,7 +69,6 @@ const mask = {
   cardCVV: {mask: '###'}
 }
 
-
 const submit = handleSubmit((values) => {
 
   checkout(values).then(result => res => {

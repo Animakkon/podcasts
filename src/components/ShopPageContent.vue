@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {ref, reactive, computed, onMounted, watch} from "vue"
-import axios from "axios";
 import {useField, useForm} from "vee-validate";
 
-import ProductService, {IProduct} from "@/services/data/product.js"
+import {IProduct} from "src/services/data/product.ts"
 
 import Loader from "./general/Loader.vue"
 import ProductListItem from "./ShopPageContentProductsItems.vue"
 import AddThenGoToCartButton from "@/components/components/AddThenGoToCartButton.vue";
-import {addToCart, getProductCounts} from "@/services/data/cart.js";
+import {addToCart, getProductCounts} from "@/services/data/cart.ts";
+import {getProductListByCategory, getAllCategories} from "@/services/data/product.ts";
 
 const props = defineProps([
     'parentFilter',
@@ -55,7 +55,6 @@ let inProcess = computed({
   }
 })
 
-const productService$ = new ProductService()
 let states = reactive({
   categories: []
 })
@@ -64,9 +63,8 @@ const selectcategory = ref('')
 watch(selectcategory, (newcategory) => {
   inProcess.value = true
 
-  let req;
   if (!!newcategory) {
-    req = productService$.getProductListBycategory(newcategory, props.PROD_LIST).then((result) => {
+    getProductListByCategory(newcategory, props.PROD_LIST).then((result) => {
       calculatedProducts.value = result
       inProcess.value = false
     })
@@ -101,7 +99,7 @@ const isInCart = (productId: number) => {
 }
 
 function getCategoriesList() {
-  return productService$.getAllCategories()
+  return getAllCategories()
 }
 
 const {handleReset} = useForm()
@@ -211,11 +209,13 @@ function resetAndGetList() {
               <ProductListItem
                   :product="product"
                   @productInfo="(n) => {$router.push({ name: 'ProductCard', params: { id: n } })}"
+                  data-testId="product_item"
               >
                 <template #buttons>
                   <AddThenGoToCartButton :product-id="product.id"
                                          :is-in-cart="isInCart(product.id)"
                                          @emit-product-to-cart="(id) => setIntoCart(id, product)"
+                                         data-testId="product_item__addBtn"
                   >
                   </AddThenGoToCartButton>
                 </template>

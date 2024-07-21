@@ -1,5 +1,4 @@
 import { get, post } from '../httpAxiosRequests.ts'
-import {useProductsStore} from "../../store-pinia/productsStore.ts";
 
 const BASE_URL = "https://fakestoreapi.com"
 
@@ -17,38 +16,26 @@ export interface IProduct {
     image: string
 }
 
-export default class ProductService {
-    _productsStore() {
-        return useProductsStore();
-    }
+export async function getAllProductList() {
+    return get('products', {}, BASE_URL, 'product.ts')
+}
 
-    returnProductList() {
-        const productsList = this._productsStore().productsList
-        return productsList
-    }
+export async function getProductListByCategory(category: string, list: Array<IProduct>) {
+    const res = list.filter((product) => product.category === category)
+    return Promise.resolve(res)
+}
 
-    getAllProductList() {
-        return get('products', {}, BASE_URL)
-    }
+export async function createProduct(body: string) {
+    const url = `${ENDPOINTS.Products}`
+    return post(url, body, {}, BASE_URL)
+}
 
-    getAllCategories() {
-        const url = `${ENDPOINTS.Products}/${ENDPOINTS.Categories}`
-        return get(url, {}, BASE_URL);
-    }
+export async function getAllCategories() {
+    const url = `${ENDPOINTS.Products}/${ENDPOINTS.Categories}`
+    return get(url, {}, BASE_URL);
+}
 
-    createProduct(body:string) {
-        const url = `${ENDPOINTS.Products}`
-        return post(url, body, {}, BASE_URL)
-    }
-
-    getProductById(id: string) {
-        const url = `${ENDPOINTS.Products}/${id}`
-        return get(url, {}, BASE_URL)
-    }
-
-    getProductListBycategory(cathegory: string, list: Array<IProduct>) {
-        const res = list.filter((product) => product.category === cathegory)
-        return Promise.resolve(res)
-    }
-
+export async function getProductById(id: string) {
+    const url = `${ENDPOINTS.Products}/${id}`
+    return get(url, {}, BASE_URL)
 }

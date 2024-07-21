@@ -22,7 +22,7 @@ export const usePersonalInfoStore = defineStore('personalInfo', () => {
 
         const personInfo = ref(EMPTY_PERSON);
 
-        function fillPersonInfo(personLogin: string) {
+        async function fillPersonInfo(personLogin: string) {
             if (personLogin.length) {
                 setPersonInfoByLogin(personLogin)
                     .then(res => {
@@ -31,7 +31,7 @@ export const usePersonalInfoStore = defineStore('personalInfo', () => {
                 // установка информации для конкретного пользователя
 
             } else {
-                console.log('auth not')
+                setDataIntoPersonInfo(EMPTY_PERSON);
             }
         }
 

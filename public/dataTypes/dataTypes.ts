@@ -6,9 +6,9 @@ export interface IPersonInfo {
     dateBirth: string,
     image: string,
     data: {
-        address: Array<IAddress> | [],
-        cards: Array<IPayCardInfo> | [],
-        credentialsToShow: {
+        address?: Array<IAddress> | [],
+        cards?: Array<IPayCardInfo> | [],
+        credentialsToShow?: {
             login: string
         }
     }

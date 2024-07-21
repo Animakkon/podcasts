@@ -1,5 +1,3 @@
-import {checkout} from "../../api/ACheckout.ts";
-
 export function checkout(value: any) {
     const url = 'post'
     const body = JSON.stringify(value)
@@ -10,7 +8,8 @@ import {IProduct} from "./product.ts";
 function _cartStore() {
     return useCartStore();
 }
-export function getCartTotalsSum() {
+
+export function getCartTotalsCounts() {
     return _cartStore().totalCounts.productsCount
 }
 
